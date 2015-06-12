@@ -1,7 +1,7 @@
 * Finding new and interesting longform articles through random search.
 
 * Tasks
-** scrape longform articles.
+** STARTED scrape longform articles.
 ** calculate similarities.
 ** randomly explore similarity matrix to find candidates.
 ** suggest article to user
