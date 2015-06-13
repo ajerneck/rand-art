@@ -1,6 +1,7 @@
 import requests
 import bs4
 import re
+import random
 
 URL = 'http://longform.org'
 
@@ -30,6 +31,39 @@ def parse_article(post):
         article = ""
     post['text'] = article
     return post
+
+def nr_of_pages(url):
+    p = requests.get(url)
+    s = bs4.BeautifulSoup(p.text)
+    return int(s.select('div.pagination a')[-2].text)
+
+def scrape(url):
+
+    n = nr_of_pages(url)
+    ## generate list of all urls.
+    urls = [''.join([URL, '/posts/?page=',str(i)]) for i in range(2, n)]
+    ## add the first page, the url, to the list of urls.
+    urls.insert(0, urls)
+
+    ## take a random sample.
+    ## urls = random.sample(urls, 4)
+
+    ## temporary urls.
+    urls = ['http://longform.org/posts/?page=153', 'http://longform.org/posts/?page=503', 'http://longform.org/posts/?page=31', 'http://longform.org/posts/?page=459']
+
+    ## read articles
+    arts = []
+    for u in urls[2:3]:
+        print u
+        pages = parse_page(u)
+        print '-------'
+        for p in pages:
+            print p
+            a = parse_article(p)
+            print len(a['text'])
+            arts.append(a)
+
+    return arts
 
 def main():
     x = parse_page(URL)
