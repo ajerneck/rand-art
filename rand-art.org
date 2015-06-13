@@ -13,7 +13,10 @@ CLOSED: [2015-06-13 Sat 13:01]
 CLOCK: [2015-06-13 Sat 10:42]--[2015-06-13 Sat 13:01] =>  2:19
 CLOCK: [2015-06-13 Sat 10:26]--[2015-06-13 Sat 10:36] =>  0:10
 :END:      
-** calculate similarities.
+** STARTED calculate similarities.
+:LOGBOOK:  
+CLOCK: [2015-06-13 Sat 13:01]
+:END:      
 ** randomly explore similarity matrix to find candidates.
 ** suggest article to user
 ** get feedback from user.
