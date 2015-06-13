@@ -1,7 +1,18 @@
 * Finding new and interesting longform articles through random search.
 
 * Tasks
-** STARTED scrape longform articles.
+** DONE scrape longform articles.
+CLOSED: [2015-06-13 Sat 10:26]
+:LOGBOOK:  
+- State "DONE"       from "STARTED"    [2015-06-13 Sat 10:26]
+:END:      
+** DONE migrate to django
+CLOSED: [2015-06-13 Sat 13:01]
+:LOGBOOK:  
+- State "DONE"       from "STARTED"    [2015-06-13 Sat 13:01]
+CLOCK: [2015-06-13 Sat 10:42]--[2015-06-13 Sat 13:01] =>  2:19
+CLOCK: [2015-06-13 Sat 10:26]--[2015-06-13 Sat 10:36] =>  0:10
+:END:      
 ** calculate similarities.
 ** randomly explore similarity matrix to find candidates.
 ** suggest article to user
