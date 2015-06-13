@@ -4,4 +4,4 @@ class Article(models.Model):
     url = models.URLField()
     title = models.TextField()
     text = models.TextField()
-    testing = models.TextField()
+    label = models.IntegerField()
