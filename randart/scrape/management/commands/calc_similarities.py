@@ -9,7 +9,7 @@ from sklearn.cluster import KMeans
 
 
 def calc():
-    a = Article.objects.all()[1:10]
+    a = Article.objects.all()[1:100]
     ts =  [x.text for x in a]
 
     count_vect = CountVectorizer(stop_words='english')
@@ -29,8 +29,10 @@ def calc():
     model.fit(tfidf)
 
     ## associated each article with a label, create result rows, and bulk save.
+    ## delete all, but, this should really be more refined: delete where the model is the same as the model now being run.
+    Result.objects.all().delete()
     xs = zip(a, model.labels_)
-    rs = [Result(article=x, label=i, learner="kmeans, clusters=5, x=tfidf") for (k, i) in xs ]
+    rs = [Result(article=x, label=i, learner="kmeans, clusters=5, x=tfidf") for (x, i) in xs ]
     Result.objects.bulk_create(rs)
 
 
