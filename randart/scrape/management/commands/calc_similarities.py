@@ -7,7 +7,7 @@ from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.cluster import KMeans
 
 
-def calc(clusters):
+def calc():
     a = Article.objects.all()
     ts =  [x.text for x in a]
 
@@ -17,7 +17,13 @@ def calc(clusters):
     tf_transformer = TfidfTransformer()
     tfidf = tf_transformer.fit_transform(word_counts)
 
-    model = KMeans(clusters, init='k-means++', max_iter=100, n_init=1)
+    ## make a list of models here, with:
+    ## different similarity measures, different methods.
+    ## should be a grid, then, save all the results, then, evaluate all the results:
+    ## ie, look at at sample of articles, see how they fare in the different modelss.
+    ## also build a tool to list a sample from each cluster, with url, title, and first couple of paragraphs.
+
+    model = KMeans(20, init='k-means++', max_iter=100, n_init=1)
     model.fit(tfidf)
 
     for i, x in enumerate(a):
@@ -27,9 +33,8 @@ def calc(clusters):
     #return {'db': a, 'tfidy': tfidf, 'model':model}
 
 
-
 class Command(BaseCommand):
     help = 'calculate similarities between documents'
 
-    def handle(self, clusters, *args, **options):
-        calc(int(clusters))
+    def handle(self, *args, **options):
+        calc()

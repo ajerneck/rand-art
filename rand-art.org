@@ -15,9 +15,45 @@ CLOCK: [2015-06-13 Sat 10:26]--[2015-06-13 Sat 10:36] =>  0:10
 :END:      
 ** STARTED calculate similarities.
 :LOGBOOK:  
-CLOCK: [2015-06-13 Sat 13:01]
+CLOCK: [2015-06-13 Sat 13:01]--[2015-06-13 Sat 15:17] =>  2:16
 :END:      
+*** extract features
+- check if more cleaning needs to be done.
+
+*** run list of models with kmeans and:
+- based on hastie et al introduction to stat learning, pp 399.
+- different similarity measures
+- scaled/centered values
+- different number of clusters.
+- cluster with subsets of the data.
+- make a new table to store the results:
+  - id, method, label.
+** explore results
+:LOGBOOK:  
+CLOCK: [2015-06-14 Sun 11:02]
+:END:      
+*** explore results with pca plot.
+- do principal components to get two dimensions.
+- plot the documents as points, coloring by cluster, make one for each run.
+- identify a couple of articles that you think are of different kinds.
+*** make a matrix of document x method, with cluster assignment as values.
+- then some way of identifying whether two documents are in the same cluster
+  across methods:
+  - ie, comparing across rows, are two documents in the same cluster?
+*** take a small random sample of docs and classify them manually.
+- look at them across methods.
 ** randomly explore similarity matrix to find candidates.
+- sample from a cluster.
+- show article to user
+- ask user to rate:
+  - yes, no, maybe.
+- once we have gone through each cluster
+  - sample more articles from 'yes' clusters.
+    - 
 ** suggest article to user
 ** get feedback from user.
 ** update search based on feedback.
+* Improvements
+** extract all the available data from longform articles.
+** select publication, count(where text < 1000) group by publication to see where the scraper can be improved.
+** 

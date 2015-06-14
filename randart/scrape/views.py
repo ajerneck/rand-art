@@ -1,4 +1,7 @@
 from django.http import HttpResponse
+from scrape.models import Article
+
 
 def index(request):
-    return HttpResponse('hello, testing scrape views.')
+    n = len(Article.objects.all())
+    return HttpResponse('There are ' + str(n) + ' articles scraped')

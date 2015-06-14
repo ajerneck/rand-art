@@ -10,6 +10,7 @@ class Command(BaseCommand):
         Article.objects.all().delete()
         print('scraping...')
         arts = longform.scrape()
+        ## TODO: can this be made faster? 
         for a in arts:
             x = Article(title=a['title'], text=a['text'])
             x.save()

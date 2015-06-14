@@ -23,7 +23,7 @@ def parse_article(post):
         page = requests.get(post['url'])
         soup = bs4.BeautifulSoup(page.text)
         article = "".join([p.text for p in soup.select('p')])
-    except (requests.exceptions.MissingSchema, requests.exceptions.ConnectionError) as e:
+    except (requests.exceptions.MissingSchema, requests.exceptions.ConnectionError, requests.exceptions.InvalidSchema) as e:
         print "error({0}): {1}".format(e.errno, e.strerror)
         print "error fetching: " + post['url']
         article = ""
@@ -38,20 +38,21 @@ def nr_of_pages(url):
 def scrape():
     url = 'http://longform.org'
     n = nr_of_pages(url)
+    print('{0!s} pages to parse'.format(n))
     ## generate list of all urls.
     urls = [''.join([url, '/posts/?page=',str(i)]) for i in range(2, n)]
     ## add the first page, the url, to the list of urls.
-    urls.insert(0, urls)
+    urls.insert(0, url)
 
     ## take a random sample.
     ## urls = random.sample(urls, 4)
-
     ## temporary urls.
-    urls = ['http://longform.org/posts/?page=153', 'http://longform.org/posts/?page=503', 'http://longform.org/posts/?page=31', 'http://longform.org/posts/?page=459']
+    ## urls = ['http://longform.org/posts/?page=153', 'http://longform.org/posts/?page=503', 'http://longform.org/posts/?page=31', 'http://longform.org/posts/?page=459']
+    urls = urls
 
     ## read articles
     arts = []
-    for u in urls[2:3]:
+    for u in urls:
         print u
         pages = parse_page(u)
         print '-------'
