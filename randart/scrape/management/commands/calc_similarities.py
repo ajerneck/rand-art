@@ -1,6 +1,7 @@
 from django.core.management.base import BaseCommand
 
 from scrape.models import Article
+from scrape.models import Result
 
 from sklearn.feature_extraction.text import TfidfTransformer
 from sklearn.feature_extraction.text import CountVectorizer
@@ -8,7 +9,7 @@ from sklearn.cluster import KMeans
 
 
 def calc():
-    a = Article.objects.all()
+    a = Article.objects.all()[1:10]
     ts =  [x.text for x in a]
 
     count_vect = CountVectorizer(stop_words='english')
@@ -23,14 +24,14 @@ def calc():
     ## ie, look at at sample of articles, see how they fare in the different modelss.
     ## also build a tool to list a sample from each cluster, with url, title, and first couple of paragraphs.
 
-    model = KMeans(20, init='k-means++', max_iter=100, n_init=1)
+ 
+    model = KMeans(5, init='k-means++', max_iter=100, n_init=1)
     model.fit(tfidf)
 
-    for i, x in enumerate(a):
-        x.label = model.labels_[i]
-        x.save()
-
-    #return {'db': a, 'tfidy': tfidf, 'model':model}
+    ## associated each article with a label, create result rows, and bulk save.
+    xs = zip(a, model.labels_)
+    rs = [Result(article=x, label=i, learner="kmeans, clusters=5, x=tfidf") for (k, i) in xs ]
+    Result.objects.bulk_create(rs)
 
 
 class Command(BaseCommand):
