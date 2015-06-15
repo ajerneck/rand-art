@@ -48,7 +48,7 @@ def scrape():
     ## urls = random.sample(urls, 4)
     ## temporary urls.
     ## urls = ['http://longform.org/posts/?page=153', 'http://longform.org/posts/?page=503', 'http://longform.org/posts/?page=31', 'http://longform.org/posts/?page=459']
-    urls = urls
+    ## urls = urls
 
     ## read articles
     arts = []
@@ -59,6 +59,7 @@ def scrape():
         for p in pages:
             print p
             a = parse_article(p)
+            print a['text'][0:200]
             print len(a['text'])
             arts.append(a)
 

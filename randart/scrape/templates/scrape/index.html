@@ -1,0 +1,16 @@
+{% if rs %}
+<ul>
+  {% for label, arts in rs.items %}
+  <h1> {{ label }} </h1>
+
+  {% for a in arts %}
+
+    <h3> {{a.title}} </h3>
+
+      <p> {{a.text|truncatewords:"150"}}</p>
+
+  {% endfor %}
+
+  {% endfor %}
+</ul>
+{% endif %}

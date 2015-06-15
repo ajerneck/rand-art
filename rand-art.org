@@ -30,9 +30,12 @@ CLOCK: [2015-06-13 Sat 13:01]--[2015-06-13 Sat 15:17] =>  2:16
   - id, method, label.
 ** explore results
 :LOGBOOK:  
-CLOCK: [2015-06-14 Sun 11:02]
+CLOCK: [2015-06-14 Sun 11:02]--[2015-06-15 Mon 09:44] => 22:42
 :END:      
-*** explore results with pca plot.
+*** STARTED explore results with pca plot.
+:LOGBOOK:  
+CLOCK: [2015-06-15 Mon 09:44]
+:END:      
 - do principal components to get two dimensions.
 - plot the documents as points, coloring by cluster, make one for each run.
 - identify a couple of articles that you think are of different kinds.
@@ -53,6 +56,10 @@ CLOCK: [2015-06-14 Sun 11:02]
 ** suggest article to user
 ** get feedback from user.
 ** update search based on feedback.
+- show two articles, show both to user, ask which one is better.
+- this is the random search algorithm.
+- but, the random search is still geared towards findig an optimum:
+   - what I'm suggesting is increasing diversity in recommendations.
 * Improvements
 ** extract all the available data from longform articles.
 ** select publication, count(where text < 1000) group by publication to see where the scraper can be improved.
