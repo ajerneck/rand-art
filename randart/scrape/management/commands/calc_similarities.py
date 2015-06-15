@@ -10,7 +10,7 @@ from sklearn.decomposition import TruncatedSVD
 
 def calc():
     print('Querying...')
-    a = Article.objects.raw('SELECT * FROM scrape_article WHERE LENGTH(text) > 1000 limit 2000')
+    a = Article.objects.raw('SELECT * FROM scrape_article WHERE LENGTH(text) > 1000 AND url NOT LIKE "http://www.nybooks.com%";')
     ## custom trimmings
     ## cut off end of the atlantic articles.
     ts = [x.text[:-10000] if 'theatlantic' in x.url else x.text for x in a]
