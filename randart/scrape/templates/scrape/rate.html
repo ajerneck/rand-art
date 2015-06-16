@@ -7,7 +7,7 @@
     <p> {{art.text|truncatewords:"150"}}</p>
 
     <label for="choice{{ label }}">Like</label>
-    <input type="checkbox" name="rating" id="rating{{ label }}"/>
+    <input type="checkbox" name="rating_{{label}}_{{art.id}}" id="rating{{ label }}"/>
     
     {% endfor %}
   </ul>

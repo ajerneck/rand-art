@@ -2,9 +2,13 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.template import RequestContext, loader
 from django import forms
 from django.shortcuts import render
+
 from scrape.models import Article
+from scrape.models import Rating
+
 
 import collections
+import random
 
 import results
 
@@ -22,33 +26,57 @@ def index(request):
 
     return HttpResponse(template.render(context))
 
-# class RateForm(forms.Form):
-  
-#     a = forms.CharField(label = 'testing')
+## transform ratings in the form format to a numeric format.
+def transform_rating(rating):
+    if rating == 'on':
+        r = 1
+    else:
+        r = 0
+    return r
 
 def rate(request):
     if request.method == 'POST':
         form = request.POST
+
+        ## get the ratings.
+        ## ratings are in the form ('rating_label.id_article.id', 'on'),
+        ## for labels with checked checkboxes.
+        ## So, split out the article and label id,
+        ## so it can be used in creating Ratings below.
+        ks = form.items()
+        ks = [(k.split('_'),v) for (k,v) in ks if 'rating_' in k]
+
+        ## store ratings in database so they can be used in recommend view.
+        rs = [Rating(label=int(k[1]), rating=transform_rating(v)) for (k,v) in ks]
+        Rating.objects.all().delete()
+        Rating.objects.bulk_create(rs)
+
         return HttpResponseRedirect('/recommend')
 
     else:
         ss = results.stratifiedSample(1)
         rs = {}
-        for label in ss.keys()[0:2]:
+        for label in ss.keys():
             rs[label] = Article.objects.filter(id__in=ss[label])[0]
 
     return render(request, 'scrape/rate.html', {'rs': rs})
- 
+
 def recommend(request):
-    return HttpResponse('recommendations')
+ 
+    lbls = [i.label for i in Rating.objects.filter(rating=1)]
+    ss = results.stratifiedSample(1)
 
+    to_rm = [k for k in ss.keys() if k not in lbls]
 
-# def rate2(request):
-#     ss = results.stratifiedSample(1)
-#     rs = Article.objects.filter(id__in=ss.values())
-#     template = loader.get_template('scrape/rate.html')
+    for k in to_rm:
+        del(ss[k])
 
-#     # I AM HERE: implement a form that allows the user to rate each article.
-#     # very similar to index.html, but, just with a radio button for each of yes, no.
+    rs = {}
+    for label in ss.keys():
+        rs[label] = Article.objects.filter(id__in=ss[label])
 
-#     # then, based on the results, select more articles from those clusters, or, articles that are similar to those.
+    template = loader.get_template('scrape/index.html')
+    context = RequestContext(request, {'rs': rs})
+
+#    return HttpResponse(str(to_rm))
+    return HttpResponse(template.render(context))

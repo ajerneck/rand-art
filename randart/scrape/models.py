@@ -11,3 +11,6 @@ class Result(models.Model):
     learner = models.CharField(max_length=400)
     label = models.IntegerField()
 
+class Rating(models.Model):
+    label = models.IntegerField()
+    rating = models.IntegerField()

@@ -21,6 +21,7 @@ CLOCK: [2015-06-13 Sat 13:01]--[2015-06-13 Sat 15:17] =>  2:16
 - check if more cleaning needs to be done.
 
 *** run list of models with kmeans and:
+
 - based on hastie et al introduction to stat learning, pp 399.
 - different similarity measures
 - scaled/centered values
@@ -34,7 +35,7 @@ CLOCK: [2015-06-14 Sun 11:02]--[2015-06-15 Mon 09:44] => 22:42
 :END:      
 *** STARTED explore results with pca plot.
 :LOGBOOK:  
-CLOCK: [2015-06-15 Mon 09:44]
+CLOCK: [2015-06-15 Mon 09:44]--[2015-06-16 Tue 09:47] => 24:03
 :END:      
 - do principal components to get two dimensions.
 - plot the documents as points, coloring by cluster, make one for each run.
@@ -53,8 +54,23 @@ CLOCK: [2015-06-15 Mon 09:44]
 - once we have gone through each cluster
   - sample more articles from 'yes' clusters.
     - 
-** suggest article to user
-** get feedback from user.
+** DONE suggest article to user
+CLOSED: [2015-06-16 Tue 18:04] SCHEDULED: <2015-06-16 Tue>
+:LOGBOOK:  
+- State "DONE"       from "STARTED"    [2015-06-16 Tue 18:04]
+CLOCK: [2015-06-16 Tue 17:20]--[2015-06-16 Tue 18:04] =>  0:44
+CLOCK: [2015-06-16 Tue 09:47]--[2015-06-16 Tue 10:34] =>  0:47
+:END:      
+** DONE get feedback from user.
+CLOSED: [2015-06-16 Tue 18:04] SCHEDULED: <2015-06-16 Tue>
+:LOGBOOK:  
+- State "DONE"       from ""           [2015-06-16 Tue 18:04]
+:END:      
+** DONE give recommendations
+CLOSED: [2015-06-16 Tue 18:04]
+:LOGBOOK:  
+- State "DONE"       from ""           [2015-06-16 Tue 18:04]
+:END:      
 ** update search based on feedback.
 - show two articles, show both to user, ask which one is better.
 - this is the random search algorithm.
@@ -63,4 +79,4 @@ CLOCK: [2015-06-15 Mon 09:44]
 * Improvements
 ** extract all the available data from longform articles.
 ** select publication, count(where text < 1000) group by publication to see where the scraper can be improved.
-** 
+** fix clustering of playboy articles into one category.
