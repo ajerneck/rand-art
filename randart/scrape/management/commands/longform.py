@@ -22,7 +22,7 @@ def parse_article(post):
     try:
         page = requests.get(post['url'])
         soup = bs4.BeautifulSoup(page.text)
-        article = "".join([p.text for p in soup.select('p')])
+        article = "\n".join([p.text for p in soup.select('p')])
     except (requests.exceptions.MissingSchema, requests.exceptions.ConnectionError, requests.exceptions.InvalidSchema) as e:
         print "error({0}): {1}".format(e.errno, e.strerror)
         print "error fetching: " + post['url']
