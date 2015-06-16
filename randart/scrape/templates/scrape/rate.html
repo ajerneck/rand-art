@@ -1,0 +1,15 @@
+<form action="rate" method="post">
+  {% csrf_token %}
+  <ul>
+    {% for label, art in rs.items %}
+
+    <h5> {{art.title}} </h5>
+    <p> {{art.text|truncatewords:"150"}}</p>
+
+    <label for="choice{{ label }}">Like</label>
+    <input type="checkbox" name="rating" id="rating{{ label }}"/>
+    
+    {% endfor %}
+  </ul>
+  <input type="submit" value="Submit" />
+</form> 
