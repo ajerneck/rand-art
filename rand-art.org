@@ -71,11 +71,24 @@ CLOSED: [2015-06-16 Tue 18:04]
 :LOGBOOK:  
 - State "DONE"       from ""           [2015-06-16 Tue 18:04]
 :END:      
-** update search based on feedback.
+** CANCELLED update search based on feedback.
+CLOSED: [2015-06-16 Tue 18:10]
+:LOGBOOK:  
+- State "CANCELLED"  from ""           [2015-06-16 Tue 18:10] \\
+  Now it just takes a random sample within the 'liked' categories.
+:END:      
 - show two articles, show both to user, ask which one is better.
 - this is the random search algorithm.
 - but, the random search is still geared towards findig an optimum:
-   - what I'm suggesting is increasing diversity in recommendations.
+  - what I'm suggesting is increasing diversity in recommendations.
+** TODO put a link on the recommendations page back to rating.
+** TODO make a starting page.
+** TODO refactor views.recommend.
+- it should be more efficient to:
+  - get the liked labels.
+  - for each label, get all the articles, take a random sample, add it to the
+    dict.
+
 * Improvements
 ** extract all the available data from longform articles.
 ** select publication, count(where text < 1000) group by publication to see where the scraper can be improved.
