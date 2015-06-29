@@ -1,15 +1,8 @@
-{% if rs %}
-<ul>
-  {% for label, arts in rs.items %}
-  <h1> {{ label }} </h1>
+{% load staticfiles %}
 
-  {% for a in arts %}
 
-  <p> {{a.text|truncatewords:"150"}}</p>
-  <a href={{a.url}}> {{a.title}}</a>
+<link rel="stylesheet" type="text/css" href="{% static 'scrape/style.css' %}" />
 
-  {% endfor %}
-
-  {% endfor %}
-</ul>
-{% endif %}
+<p> Welcome to Randart, a site that helps you discover new and exciting
+  content.
+</p>

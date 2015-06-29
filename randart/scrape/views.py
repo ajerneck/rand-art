@@ -13,6 +13,14 @@ import random
 import results
 
 def index(request):
+    return HttpResponse("""
+    <p>
+    Welcome to Randart, a site for exploring new and exciting content.
+    </p>
+    <a href=/rate> Begin by rating some articles </a>
+    """)
+
+def inspect(request):
     ss = results.stratifiedSample(10)
 
     ## create a dict with lists of article objects corresponding to the sample.
@@ -21,7 +29,7 @@ def index(request):
         rs[label] = Article.objects.filter(id__in=ss[label])
 
     ## present sample using a template.
-    template = loader.get_template('scrape/index.html')
+    template = loader.get_template('scrape/inspect.html')
     context = RequestContext(request, {'rs': rs})
 
     return HttpResponse(template.render(context))
@@ -75,7 +83,7 @@ def recommend(request):
     for label in ss.keys():
         rs[label] = Article.objects.filter(id__in=ss[label])
 
-    template = loader.get_template('scrape/index.html')
+    template = loader.get_template('scrape/inspect.html')
     context = RequestContext(request, {'rs': rs})
 
 #    return HttpResponse(str(to_rm))
