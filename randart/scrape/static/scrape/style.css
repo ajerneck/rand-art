@@ -1,0 +1,21 @@
+body {
+    background-color: AliceBlue;
+}
+
+ul {
+    list-style-type: none;
+}
+
+li {
+    margin: 2%;
+    padding: 2%;
+    max-width: 40%;
+    border-style: solid;
+    border-width: 1px;
+    border-color: black;
+}
+
+p {
+    font-family: Georgia, serif;
+}
+

@@ -1,14 +1,20 @@
+{% load staticfiles %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'scrape/style.css' %}" />
+
 <form action="rate" method="post">
   {% csrf_token %}
   <ul>
     {% for label, art in rs.items %}
+    <li
 
-    <h5> {{art.title}} </h5>
+       <h1> {{art.title}} </h1>
     <p> {{art.text|truncatewords:"150"}}</p>
-
+    
     <label for="choice{{ label }}">Like</label>
     <input type="checkbox" name="rating_{{label}}_{{art.id}}" id="rating{{ label }}"/>
-    
+
+    </li>
     {% endfor %}
   </ul>
   <input type="submit" value="Submit" />

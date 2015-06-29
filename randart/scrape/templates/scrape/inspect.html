@@ -1,0 +1,23 @@
+{% if rs %}
+{% load staticfiles %}
+
+
+<link rel="stylesheet" type="text/css" href="{% static 'scrape/style.css' %}" />
+
+
+<ul>
+  {% for label, arts in rs.items %}
+
+  {% for a in arts %}
+  <li
+
+  <p> {{a.text|truncatewords:"150"}}</p>
+  <a href={{a.url}}> {{a.title}}</a>
+
+  </li>
+  {% endfor %}
+
+  {% endfor %}
+</ul>
+<a href="/recommend.html"> Next </a>
+{% endif %}
