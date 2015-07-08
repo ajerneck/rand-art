@@ -1,26 +1,32 @@
-* Finding new and interesting longform articles through random search.
+* Finding new and interesting content using stratified sample.
 
-* Tasks
-** DONE scrape longform articles.
+The basic procedure is:
+1. organize some content into genres, clusters, etc.
+2. present a random sample of content, stratified by the clusters.
+3. present more content from clusters rated favorably by user.
+
+** Longform articles
+*** Tasks
+**** DONE scrape longform articles.
 CLOSED: [2015-06-13 Sat 10:26]
 :LOGBOOK:  
 - State "DONE"       from "STARTED"    [2015-06-13 Sat 10:26]
 :END:      
-** DONE migrate to django
+**** DONE migrate to django
 CLOSED: [2015-06-13 Sat 13:01]
 :LOGBOOK:  
 - State "DONE"       from "STARTED"    [2015-06-13 Sat 13:01]
 CLOCK: [2015-06-13 Sat 10:42]--[2015-06-13 Sat 13:01] =>  2:19
 CLOCK: [2015-06-13 Sat 10:26]--[2015-06-13 Sat 10:36] =>  0:10
 :END:      
-** STARTED calculate similarities.
+**** STARTED calculate similarities.
 :LOGBOOK:  
 CLOCK: [2015-06-13 Sat 13:01]--[2015-06-13 Sat 15:17] =>  2:16
 :END:      
-*** extract features
+***** extract features
 - check if more cleaning needs to be done.
 
-*** run list of models with kmeans and:
+***** run list of models with kmeans and:
 
 - based on hastie et al introduction to stat learning, pp 399.
 - different similarity measures
@@ -29,24 +35,24 @@ CLOCK: [2015-06-13 Sat 13:01]--[2015-06-13 Sat 15:17] =>  2:16
 - cluster with subsets of the data.
 - make a new table to store the results:
   - id, method, label.
-** explore results
+**** explore results
 :LOGBOOK:  
 CLOCK: [2015-06-14 Sun 11:02]--[2015-06-15 Mon 09:44] => 22:42
 :END:      
-*** STARTED explore results with pca plot.
+***** STARTED explore results with pca plot.
 :LOGBOOK:  
 CLOCK: [2015-06-15 Mon 09:44]--[2015-06-16 Tue 09:47] => 24:03
 :END:      
 - do principal components to get two dimensions.
 - plot the documents as points, coloring by cluster, make one for each run.
 - identify a couple of articles that you think are of different kinds.
-*** make a matrix of document x method, with cluster assignment as values.
+***** make a matrix of document x method, with cluster assignment as values.
 - then some way of identifying whether two documents are in the same cluster
   across methods:
   - ie, comparing across rows, are two documents in the same cluster?
-*** take a small random sample of docs and classify them manually.
+***** take a small random sample of docs and classify them manually.
 - look at them across methods.
-** randomly explore similarity matrix to find candidates.
+**** randomly explore similarity matrix to find candidates.
 - sample from a cluster.
 - show article to user
 - ask user to rate:
@@ -54,24 +60,24 @@ CLOCK: [2015-06-15 Mon 09:44]--[2015-06-16 Tue 09:47] => 24:03
 - once we have gone through each cluster
   - sample more articles from 'yes' clusters.
     - 
-** DONE suggest article to user
+**** DONE suggest article to user
 CLOSED: [2015-06-16 Tue 18:04] SCHEDULED: <2015-06-16 Tue>
 :LOGBOOK:  
 - State "DONE"       from "STARTED"    [2015-06-16 Tue 18:04]
 CLOCK: [2015-06-16 Tue 17:20]--[2015-06-16 Tue 18:04] =>  0:44
 CLOCK: [2015-06-16 Tue 09:47]--[2015-06-16 Tue 10:34] =>  0:47
 :END:      
-** DONE get feedback from user.
+**** DONE get feedback from user.
 CLOSED: [2015-06-16 Tue 18:04] SCHEDULED: <2015-06-16 Tue>
 :LOGBOOK:  
 - State "DONE"       from ""           [2015-06-16 Tue 18:04]
 :END:      
-** DONE give recommendations
+**** DONE give recommendations
 CLOSED: [2015-06-16 Tue 18:04]
 :LOGBOOK:  
 - State "DONE"       from ""           [2015-06-16 Tue 18:04]
 :END:      
-** CANCELLED update search based on feedback.
+**** CANCELLED update search based on feedback.
 CLOSED: [2015-06-16 Tue 18:10]
 :LOGBOOK:  
 - State "CANCELLED"  from ""           [2015-06-16 Tue 18:10] \\
@@ -81,15 +87,35 @@ CLOSED: [2015-06-16 Tue 18:10]
 - this is the random search algorithm.
 - but, the random search is still geared towards findig an optimum:
   - what I'm suggesting is increasing diversity in recommendations.
-** TODO put a link on the recommendations page back to rating.
-** TODO make a starting page.
-** TODO refactor views.recommend.
+**** TODO put a link on the recommendations page back to rating.
+**** TODO make a starting page.
+**** TODO refactor views.recommend.
 - it should be more efficient to:
   - get the liked labels.
   - for each label, get all the articles, take a random sample, add it to the
     dict.
 
-* Improvements
-** extract all the available data from longform articles.
-** select publication, count(where text < 1000) group by publication to see where the scraper can be improved.
-** fix clustering of playboy articles into one category.
+*** Improvements
+**** extract all the available data from longform articles.
+**** select publication, count(where text < 1000) group by publication to see where the scraper can be improved.
+**** fix clustering of playboy articles into one category.
+
+
+** * Network of books based on Book-Crossings Dataset
+
+Create a network between books via user ratings.
+In book-net/ 
+*** Tasks
+**** normalize isbns or not? 
+- should isbns that point to different editions of the same book be replaced
+  with one isbn? some seem to be in different languages, maybe they should be
+  separate.
+**** addressing the degree inequality
+- some books are just more popular than others, how does this affect their
+  position?
+- some users have rated many more books: I think the edge weights should be
+  normalized to take this into account -- maybe as a weighted version of
+  Newman's collaboration measure.
+**** Trying different community-finding algorithms
+- try other algorithms for detecting communities, cliques, structures.
+  - only linear-time works, really, because of the graph size.
